@@ -1,0 +1,78 @@
+NXP Software Content Register
+
+Release: NXP Security Reference Design
+Outgoing License: LA_OPT_NXP_Software_License v43 February 2023  - Additional distribution license granted, license in Section 2.3 applies
+License File: LICENSE.txt
+
+--------------- THIS PACKAGE ---------------
+
+Package:                     NXP Security Reference Design Yocto Project Meta Layer
+Version:                     mickledore-6.1.55-2.2.0
+Outgoing License:            MIT
+License File:                meta-nxp-security-reference-design/LICENSE.txt
+Package Category:            Software build scripts
+Type of content:             Bitbake recipes
+Description and comments:    Yocto Project meta layer to enable security into the i.MX BSP
+Release Location:            https://github.com/nxp-imx-support/meta-nxp-security-reference-design
+Origin:                      NXP (MIT) Yocto Recipes
+
+--------------------------------------------
+BSP Packages
+--------------------------------------------
+
+Package:                     linux-imx.git
+Version:                     6.1
+Outgoing License:            GPL-2.0 WITH Linux-syscall-note 
+License File:                COPYING
+Package Category:            BSP
+Type of Content:             source
+Description and comments:    The Linux kernel with i.MX-specific drivers
+Release Location:            https://github.com/nxp-imx/linux-imx -b lf-6.1.55-2.2.0
+Origin:                      NXP (GPL-2.0)
+                             kernel.org (GPL-2.0) - https://www.kernel.org/
+
+--------------------------------------------
+
+Package:                     uboot-imx.git
+Version:                     2023.04
+Outgoing License:            GPL-2.0 
+License File:                Licenses/gpl-2.0.txt
+Package Category:            BSP
+Type of Content:             source
+Description and comments:    Bootloader with i.MX-specific capabilities
+Release Location:            https://github.com/nxp-imx/uboot-imx -b lf-6.1.55-2.2.0
+Origin:                      NXP (GPL-2.0)
+                             Das U-Boot - Universal Bootloader (GPL-2.0) - http://www.denx.de/wiki/U-Boot/WebHome
+                             Android Open Source Project (BSD-2-Clause) - https://source.android.com/
+                             zlib (zlib license) - http://www.zlib.net/
+
+--------------------------------------------
+
+Package:                     imx-mkimage.git
+Version:                     
+Outgoing License:            GPL-2.0 
+License File:                LICENSE
+Package Category:            BSP
+Type of Content:             source
+Description and comments:    Make Image BootLoader
+Release Location:            https://github.com/nxp-imx/imx-mkimage -b lf-6.1.55-2.2.0
+Origin:                      NXP (GPL-2.0)
+                             Das U-Boot - Universal Bootloader (GPL-2.0) - http://www.denx.de/wiki/U-Boot/WebHome
+
+--------------------------------------------
+
+--------------------------------------------
+Other Packages
+--------------------------------------------
+
+Package:                     cst-signer
+Version:                     v1.0
+Date:                        November 2023
+Outgoing License:            GPL-2.0-or-later
+License File:                LICENSE.txt
+Type of content:             Source code
+Description and comments:    Signing automation tool using CST
+Release Location:            https://github.com/nxp-imx-support/nxp-cst-signer
+Origin:                      NXP
+
+--------------------------------------------

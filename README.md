@@ -17,7 +17,7 @@ Releases
 
 Please see individual project's README for supported releases.
 
-Install
+Usage
 -------
 
-Please see individual project's README for Install instructions
+Please see individual project's README for usage instructions
