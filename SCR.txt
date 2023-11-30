@@ -65,7 +65,7 @@ Origin:                      NXP (GPL-2.0)
 Other Packages
 --------------------------------------------
 
-Package:                     cst-signer
+Package:                     nxp-cst-signer
 Version:                     v1.0
 Date:                        November 2023
 Outgoing License:            GPL-2.0-or-later
