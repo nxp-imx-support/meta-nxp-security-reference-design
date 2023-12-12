@@ -1,7 +1,7 @@
 NXP Software Content Register
 
 Release: NXP Security Reference Design
-Outgoing License: LA_OPT_NXP_Software_License v43 February 2023  - Additional distribution license granted, license in Section 2.3 applies
+Outgoing License: LA_OPT_NXP_Software_License v53 December 2023  - Additional distribution license granted, license in Section 2.3 applies
 License File: LICENSE.txt
 
 --------------- THIS PACKAGE ---------------
