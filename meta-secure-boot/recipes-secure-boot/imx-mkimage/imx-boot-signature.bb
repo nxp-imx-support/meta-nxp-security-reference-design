@@ -5,7 +5,7 @@ inherit cst hab deploy features_check
 
 REQUIRED_MACHINE_FEATURES = "imx-boot-signature"
 
-DEPENDS += "cst-signer imx-boot"
+DEPENDS += "nxp-cst-signer-native imx-boot"
 
 # For signing the imx-boot image after it has been deployed to DEPLOY_DIR_IMAGE
 do_compile[depends] += "imx-boot:do_deploy"

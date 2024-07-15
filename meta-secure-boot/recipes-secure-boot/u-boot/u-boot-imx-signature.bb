@@ -5,7 +5,7 @@ inherit cst hab deploy features_check uboot-config
 
 REQUIRED_MACHINE_FEATURES = "u-boot-imx-signature"
 
-DEPENDS += "cst-signer u-boot"
+DEPENDS += "nxp-cst-signer-native u-boot"
 
 BOOT_IMAGE_SD = "${SIGNED_TARGET}-${MACHINE}.imx-sd"
 BOOT_TOOLS = "imx-boot-tools"

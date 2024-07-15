@@ -19,10 +19,11 @@ Following mkimage targets are supported in i.MX devices:
 | Device | Target image |
 |--------|--------------|
 | i.MX 8M family| flash_evk |
-| i.MX 93 | flash_singleboot |
-| i.MX 8ULP | flash_singleboot_m33|
 | i.MX 8QM/8QXP | flash_spl |
 | i.MX 8DXL | flash |
+| i.MX 8ULP | flash_singleboot_m33|
+| i.MX 93 | flash_singleboot |
+| i.MX 95 | flash_all |
 
 Releases
 --------

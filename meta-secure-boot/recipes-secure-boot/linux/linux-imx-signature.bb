@@ -5,7 +5,7 @@ inherit cst hab deploy features_check
 
 REQUIRED_MACHINE_FEATURES = "linux-imx-signature"
 
-DEPENDS += "cst-signer linux-imx u-boot-imx"
+DEPENDS += "nxp-cst-signer-native linux-imx u-boot-imx"
 DEPENDS:append:ahab = " imx-boot"
 DEPENDS:append:mx8m-generic-bsp = " imx-boot"
 
