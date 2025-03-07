@@ -15,7 +15,7 @@ do_compile:append:ahab() {
     mv ${BOOT_STAGING}/flash.bin ${BOOT_STAGING}/flash.bak
 
     # Invoke mkimage again to Get container info
-    make SOC=${IMX_BOOT_SOC_TARGET} flash_kernel
+    make SOC=${IMX_BOOT_SOC_TARGET} ${MKIMAGE_EXTRA_ARGS} flash_kernel
 
     # Rename kernel image name and move back the imx-boot flash image name
     mv ${BOOT_STAGING}/flash.bin ${BOOT_STAGING}/flash_os.bin
