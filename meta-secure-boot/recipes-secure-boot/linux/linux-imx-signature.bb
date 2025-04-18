@@ -9,6 +9,8 @@ DEPENDS += "nxp-cst-signer-native linux-imx u-boot-imx"
 DEPENDS:append:ahab = " imx-boot"
 DEPENDS:append:mx8m-generic-bsp = " imx-boot"
 
+SIG_CFGFILE = "sign.cfg"
+
 # All deploy tasks of DEPENDS should be done
 do_compile[deptask] = "do_deploy"
 
@@ -23,13 +25,23 @@ do_sign_kernel_image() {
 
 do_sign_kernel_image:append:ahab() {
 
-    # Creating a cfg file for cst_signer
-    if [ -e "${CST_PATH}/csf_ahab.cfg" ]; then
-        # Use user defined keys
-        install -m 0755 ${CST_PATH}/csf_ahab.cfg ${SIGNDIR}/csf.cfg
+    # Creating a cfg file for imx_signer
+    if [ ! -e "${SIG_TOOL_PATH}/spsdk" ]; then
+        if [ -e "${SIG_DATA_PATH}/csf_ahab.cfg" ]; then
+            # Use user defined keys
+            install -m 0755 ${SIG_DATA_PATH}/csf_ahab.cfg ${SIGNDIR}/${SIG_CFGFILE}
+        else
+            # Use default keys
+            install -m 0755 ${DEPLOY_DIR_IMAGE}/${BOOT_TOOLS}/csf_ahab.cfg.sample ${SIGNDIR}/${SIG_CFGFILE}
+        fi
     else
-        # Use default keys
-        install -m 0755 ${DEPLOY_DIR_IMAGE}/${BOOT_TOOLS}/csf_ahab.cfg.sample ${SIGNDIR}/csf.cfg
+        if [ -e "${SIG_DATA_PATH}/spsdk_ahab.cfg" ]; then
+            # Use user defined keys
+            install -m 0755 ${SIG_DATA_PATH}/spsdk_ahab.cfg ${SIGNDIR}/${SIG_CFGFILE}
+        else
+            # Use default keys
+            install -m 0755 ${DEPLOY_DIR_IMAGE}/${BOOT_TOOLS}/spsdk_ahab.cfg.sample ${SIGNDIR}/${SIG_CFGFILE}
+        fi
     fi
 }
 
@@ -43,8 +55,8 @@ do_sign_kernel_image:append:ahab() {
 
 do_sign_kernel_image:append:ahab() {
 
-    # Generate signed kernel and dtb image using cst_signer
-    CST_PATH=${CST_PATH} ${DEPLOY_DIR_IMAGE}/${BOOT_TOOLS}/cst_signer -d -i ${DEPLOY_DIR_IMAGE}/flash_os.bin -c ${SIGNDIR}/csf.cfg
+    # Generate signed kernel and dtb image using imx_signer
+    SIG_TOOL_PATH=${SIG_TOOL_PATH} SIG_DATA_PATH=${SIG_DATA_PATH} ${DEPLOY_DIR_IMAGE}/${BOOT_TOOLS}/imx_signer -d -i ${DEPLOY_DIR_IMAGE}/flash_os.bin -c ${SIGNDIR}/${SIG_CFGFILE}
 
     mv ${SIGNDIR}/signed-flash_os.bin ${SIGNDIR}/os_cntr_signed.bin
 }
@@ -105,20 +117,20 @@ do_sign_kernel_image:append:hab4() {
 
 do_sign_kernel_image:append:hab4() {
 
-    # Creating a cfg file for cst_signer
-    if [ -e "${CST_PATH}/csf_hab4.cfg" ]; then
+    # Creating a cfg file for imx_signer
+    if [ -e "${SIG_DATA_PATH}/csf_hab4.cfg" ]; then
         # Use user defined keys
-        install -m 0755 ${CST_PATH}/csf_hab4.cfg ${SIGNDIR}/csf.cfg
+        install -m 0755 ${SIG_DATA_PATH}/csf_hab4.cfg ${SIGNDIR}/${SIG_CFGFILE}
     else
         # Use default keys
-        install -m 0755 ${DEPLOY_DIR_IMAGE}/${BOOT_TOOLS}/csf_hab4.cfg.sample ${SIGNDIR}/csf.cfg
+        install -m 0755 ${DEPLOY_DIR_IMAGE}/${BOOT_TOOLS}/csf_hab4.cfg.sample ${SIGNDIR}/${SIG_CFGFILE}
     fi
 }
 
 do_sign_kernel_image:append:hab4() {
 
     # Generate signed image data
-    CST_PATH=${CST_PATH} ${DEPLOY_DIR_IMAGE}/${BOOT_TOOLS}/cst_signer -d -i ${SIGNDIR}/${KERNEL_IMAGETYPE}_pad_ivt.bin -c ${SIGNDIR}/csf.cfg
+    SIG_TOOL_PATH=${SIG_TOOL_PATH} SIG_DATA_PATH=${SIG_DATA_PATH} ${DEPLOY_DIR_IMAGE}/${BOOT_TOOLS}/imx_signer -d -i ${SIGNDIR}/${KERNEL_IMAGETYPE}_pad_ivt.bin -c ${SIGNDIR}/${SIG_CFGFILE}
     if [ ! -e "${S}/signed-${KERNEL_IMAGETYPE}_pad_ivt.bin" ]; then
         bbfatal 'Kernel Image signing failed'
     fi

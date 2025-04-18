@@ -8,8 +8,8 @@ Supported boards
 
    * NXP i.MX 6 Family
    * NXP i.MX 7 Family
-   * NXP i.MX 8/8x Family
    * NXP i.MX 8M Family
+   * NXP i.MX 8/8x Family
    * NXP i.MX 8ULP
    * NXP i.MX 9 Family
 
@@ -22,14 +22,17 @@ Following mkimage targets are supported in i.MX devices:
 | i.MX 8QM/8QXP | flash_spl |
 | i.MX 8DXL | flash |
 | i.MX 8ULP | flash_singleboot_m33|
-| i.MX 93 | flash_singleboot |
+| i.MX 93/91 | flash_singleboot |
 | i.MX 95 | flash_all |
+| i.MX 943 | flash_all |
 
 Releases
 --------
 Releases are tracked against the i.MX Linux software releases. Supported releases are listed below. 
 
 * Mickledore
+* Scarthgap
+* Styhead
 
 Quick Start Guide
 -----------------
@@ -38,6 +41,5 @@ From your build directory, use the following bitbake command:
 
 `bitbake-layers add-layer ../sources/meta-nxp-reference-design/meta-secure-boot`
 
-Before building add the following line to the `local.conf` to enable secure boot:
-
-`CST_PATH = "<absolute path to cst package>"`
+> **_NOTE_** Before building add the following line to the `local.conf` to use a specific signing tool:
+>  `SIG_TOOL_PATH = "<absolute path to CST package/SPSDK installation>"`
