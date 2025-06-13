@@ -21,6 +21,7 @@ do_compile:prepend:ahab() {
 }
 
 BOOT_TOOLS = "imx-boot-tools"
+do_deploy[dirs]:hab4 += "${DEPLOY_DIR_IMAGE}/${BOOT_TOOLS}"
 
 do_deploy:append:hab4() {
     unset i j
