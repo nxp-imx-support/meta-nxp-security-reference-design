@@ -9,7 +9,12 @@ inherit deploy
 SRC_URI = "${CST_SIGNER};branch=${SRCBRANCH}"
 CST_SIGNER ?= "git://github.com/nxp-imx-support/nxp-cst-signer.git;protocol=https"
 SRCBRANCH = "master"
-SRCREV = "770f09b5ed8f43f301a7e933fb0d9da9e34eaad3"
+SRCREV = "7c7812a39d0470115f363cf45736be3c8284cb40"
+
+SRC_URI += "file://0001-Enable-bitbake-and-pkcs11.patch \
+            file://0002-Enable-SPSDK-with-Bitbake.patch \
+            file://0003-Increase-command-length-to-PATH_MAX.patch \
+            "
 
 S = "${WORKDIR}/git"
 

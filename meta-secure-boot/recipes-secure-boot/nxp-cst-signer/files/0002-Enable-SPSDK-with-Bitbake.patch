@@ -1,0 +1,34 @@
+From 83de073e0aa72184b05d33845bcad8ae3db5629b Mon Sep 17 00:00:00 2001
+From: John Ripple <john.ripple@keysight.com>
+Date: Mon, 2 Jun 2025 17:56:33 +0000
+Subject: [PATCH] Enable SPSDK with Bitbake
+
+The NXP CST signer was never intended to be used in a bitbake environment.
+This patch enables the signer to work with bitbake.
+
+---
+ src/imx_signer.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/src/imx_signer.c b/src/imx_signer.c
+index cba5b9e..c48b071 100644
+--- a/src/imx_signer.c
++++ b/src/imx_signer.c
+@@ -797,11 +797,11 @@ static int create_spsdk_yaml_file(char *yaml_filename)
+         fprintf(fp_yaml_file, "sw_version: %s\n", rvalue);
+ 
+     /* Signature Provider to send password as a file along with the priv key */
+-    cfg_parser(fp_cfg, rvalue, RSIZE, "signature_provider");
++    cfg_parser(fp_cfg, rvalue, RSIZE, "signer");
+     if ('\0' == rvalue[0])
+-        fprintf(fp_yaml_file, "signature_provider: type=file;file_path=%s/keys/SRK1_sha256_prime256v1_v3_ca_key.pem;password=%s/keys/key_pass.txt\n", g_sig_tool_path, g_sig_tool_path);
++        fprintf(fp_yaml_file, "signer: type=file;file_path=%s/keys/SRK1_sha256_prime256v1_v3_ca_key.pem;password=%s/keys/key_pass.txt\n", g_sig_tool_path, g_sig_tool_path);
+     else
+-        fprintf(fp_yaml_file, "signature_provider: type=file;file_path=%s/keys/%s;password=%s/keys/key_pass.txt\n", g_sig_data_path, rvalue, g_sig_data_path);
++        fprintf(fp_yaml_file, "signer: %s\n", rvalue);
+ 
+     /* SRK Table */
+     fprintf(fp_yaml_file, "srk_table:\n");
+-- 
+2.39.5
+

@@ -1,0 +1,35 @@
+From 06eec9443ab4863c902b5947a5e5f016a9ee6d51 Mon Sep 17 00:00:00 2001
+From: John Ripple <john.ripple@keysight.com>
+Date: Thu, 17 Jul 2025 16:32:35 -0600
+Subject: [PATCH] Increase command length to PATH_MAX
+
+The SYS_CMD_LEN sets the max length of command that can be
+passed to the nxp-cst-signer. Increase it to PATH_MAX so that
+in a Yocto build the long path names do not get truncated when
+passed in to the signer.
+
+---
+ inc/imx_signer.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/inc/imx_signer.h b/inc/imx_signer.h
+index 1df34be..2fac7cc 100644
+--- a/inc/imx_signer.h
++++ b/inc/imx_signer.h
+@@ -15,6 +15,7 @@
+ #include <libgen.h>
+ #include <stdbool.h>
+ #include <unistd.h>
++#include <limits.h>
+ 
+ /************************
+         Command line arguments
+@@ -75,7 +76,7 @@ const char* desc_opt[] =
+ 
+ #define BASE_HEX                    16UL
+ #define FILENAME_MAX_LEN            100UL
+-#define SYS_CMD_LEN                 400UL
++#define SYS_CMD_LEN                 ((unsigned long)PATH_MAX)
+ 
+ #define IV_MAX_LEN                  32
+ #define HASH_MAX_LEN                64

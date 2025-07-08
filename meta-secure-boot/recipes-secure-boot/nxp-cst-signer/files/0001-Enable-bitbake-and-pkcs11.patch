@@ -1,0 +1,57 @@
+From d7fe70a9db6b2acd3640a31486d8aff93b874f06 Mon Sep 17 00:00:00 2001
+From: John Ripple <john.ripple@keysight.com>
+Date: Wed, 21 May 2025 19:51:02 +0000
+Subject: [PATCH] Enable Bitbake and PKCS#11
+
+The NXP CST siger was never inteded to be used with pkcs11 or in a bitbake
+environment. This patch enables pkcs11 to be used with the CST tool and From
+the CST tool to be found in a bitbake environment.
+
+This patch is supposed to be used in conjunction with the imx-cst recipe. Once
+SPSDK support is fully implemented, remove this patch.
+
+---
+ src/imx_signer.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/src/imx_signer.c b/src/imx_signer.c
+index 1bf92f7..3fd5794 100644
+--- a/src/imx_signer.c
++++ b/src/imx_signer.c
+@@ -187,7 +187,7 @@ static int find_cst_tool(char *cst_path)
+ 
+     /* Build CST path */
+ #if defined(__linux__)
+-    if (0 > (snprintf(cst_path, SYS_CMD_LEN, "%s/linux64/bin/cst", g_sig_tool_path))) {
++    if (0 > (snprintf(cst_path, SYS_CMD_LEN, "%s/cst", g_sig_tool_path))) {
+         fprintf(stderr, "ERROR: System command build unsuccessful. Exiting.\n");
+         return -E_FAILURE;
+     }
+@@ -273,7 +273,7 @@ int sign_csf(char *cfgname, char *ofname)
+ 
+     /* Find if tool exists and capture path */
+     if (!find_cst_tool(&sys_cmd[0])) {
+-        if (0 > (snprintf(sys_cmd + strlen(sys_cmd), (SYS_CMD_LEN - strlen(sys_cmd)), " %s --i %s --o %s", cst_extra_param, cfgname, ofname))) {
++        if (0 > (snprintf(sys_cmd + strlen(sys_cmd), (SYS_CMD_LEN - strlen(sys_cmd)), " -b pkcs11 %s --i %s --o %s", cst_extra_param, cfgname, ofname))) {
+             fprintf(stderr, "ERROR: System command build unsuccessful. Exiting.\n");
+             return -E_FAILURE;
+         }
+@@ -658,13 +658,13 @@ static int create_csf_file_v3(char *csf_filename, char *ifname, csf_params_t *cs
+     if ('\0' == rvalue[0])
+         fprintf(fp_csf_file, "\tFile = \"%s/crts/SRK_1_2_3_4_table.bin\"\n", g_sig_tool_path);
+     else
+-        fprintf(fp_csf_file, "\tFile = \"%s/crts/%s\"\n", g_sig_tool_path, rvalue);
++        fprintf(fp_csf_file, "\tFile = \"%s\"\n", rvalue);
+ 
+     cfg_parser(fp_cfg, rvalue, RSIZE, "srk_source");
+     if ('\0' == rvalue[0])
+         fprintf(fp_csf_file, "\tSource = \"%s/crts/SRK1_sha256_prime256v1_v3_ca_crt.pem\"\n", g_sig_tool_path);
+     else
+-        fprintf(fp_csf_file, "\tSource = \"%s/crts/%s\"\n", g_sig_tool_path, rvalue);
++        fprintf(fp_csf_file, "\tSource = \"%s\"\n", rvalue);
+ 
+     cfg_parser(fp_cfg, rvalue, RSIZE, "srk_source_index");
+     if ('\0' == rvalue[0])
+-- 
+2.39.5
+
