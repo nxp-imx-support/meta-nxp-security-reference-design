@@ -1,0 +1,61 @@
+From 97e54205187e115c956b4c3a00eb2189ca5ab656 Mon Sep 17 00:00:00 2001
+From: John Ripple <john.ripple@keysight.com>
+Date: Thu, 5 Jun 2025 10:46:09 -0600
+Subject: [PATCH] Correctly handle CK_UNAVAILABLE_INFORMATION
+
+The PKCS#11 specification states
+
+The constant CK_UNAVAILABLE_INFORMATION is used in the ulValueLen
+field to denote an invalid or unavailable value. See
+C_GetAttributeValue for further details.
+
+This MR exposes the CK_UNAVAILABLE_INFORMATION constant definition (along
+with CK_EFFECTIVELY_INFINITE which is defined next to it, for
+completeness sake) and checks for that result after calling
+C_GetAttributeValue
+
+This corrects a crash when a PKCS#11 module returns this. I believe this
+will fix the following issues:
+
+Prior to this change the returned value was being interpreted as an actual
+size, which resulted in attempting to allocate an array of size -1 which
+causes an overflow:
+
+  File "pkcs11/_pkcs11.pyx", line 726, in pkcs11._pkcs11.Object.__getitem__
+  File "pkcs11/_utils.pyx", line 11, in pkcs11._pkcs11.CK_BYTE_buffer
+  File "stringsource", line 152, in View.MemoryView.array.__cinit__
+OverflowError: Python int too large to convert to C ssize_t
+---
+ pkcs11/_pkcs11.pyx      | 3 +++
+ pkcs11/_pkcs11_defn.pxd | 4 ++++
+ 2 files changed, 7 insertions(+)
+
+diff --git a/pkcs11/_pkcs11.pyx b/pkcs11/_pkcs11.pyx
+index 343293f..2e5e305 100644
+--- a/pkcs11/_pkcs11.pyx
++++ b/pkcs11/_pkcs11.pyx
+@@ -740,6 +740,9 @@ class Object(types.Object):
+         with nogil:
+             assertRV(_funclist.C_GetAttributeValue(handle, obj, &template, 1))
+ 
++        if template.ulValueLen == CK_UNAVAILABLE_INFORMATION:
++            return None
++
+         if template.ulValueLen == 0:
+             return _unpack_attributes(key, b'')
+ 
+diff --git a/pkcs11/_pkcs11_defn.pxd b/pkcs11/_pkcs11_defn.pxd
+index 5f7c1b3..8effb35 100644
+--- a/pkcs11/_pkcs11_defn.pxd
++++ b/pkcs11/_pkcs11_defn.pxd
+@@ -147,6 +147,10 @@ cdef extern from '../extern/cryptoki.h':
+         CK_TRUE,
+         CK_FALSE,
+ 
++    cdef enum:
++        CK_UNAVAILABLE_INFORMATION,
++        CK_EFFECTIVELY_INFINITE,
++
+     cdef enum:  # CK_FLAGS
+         CKF_DONT_BLOCK,
+         CKF_RW_SESSION,
