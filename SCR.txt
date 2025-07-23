@@ -7,7 +7,7 @@ License File: LICENSE.txt
 --------------- THIS PACKAGE ---------------
 
 Package:                     meta-nxp-security-reference-design
-Version:                     styhead-6.12.3-1.0.0
+Version:                     walnascar-6.12.20-2.0.0
 Outgoing License:            MIT
 License File:                LICENSE.MIT
 Package Category:            Software build scripts
@@ -27,7 +27,7 @@ License File:                COPYING
 Package Category:            BSP
 Type of Content:             source
 Description and comments:    The Linux kernel with i.MX-specific drivers
-Release Location:            https://github.com/nxp-imx/linux-imx -b lf-6.12.3-1.0.0
+Release Location:            https://github.com/nxp-imx/linux-imx -b lf-6.12.20-2.0.0
 Origin:                      NXP (GPL-2.0)
                              kernel.org (GPL-2.0) - https://www.kernel.org/
 
@@ -40,7 +40,7 @@ License File:                Licenses/gpl-2.0.txt
 Package Category:            BSP
 Type of Content:             source
 Description and comments:    Bootloader with i.MX-specific capabilities
-Release Location:            https://github.com/nxp-imx/uboot-imx -b lf-6.12.3-1.0.0
+Release Location:            https://github.com/nxp-imx/uboot-imx -b lf-6.12.20-2.0.0
 Origin:                      NXP (GPL-2.0)
                              Das U-Boot - Universal Bootloader (GPL-2.0) - http://www.denx.de/wiki/U-Boot/WebHome
                              Android Open Source Project (BSD-2-Clause) - https://source.android.com/June
@@ -55,7 +55,7 @@ License File:                LICENSE
 Package Category:            BSP
 Type of Content:             source
 Description and comments:    Make Image BootLoader
-Release Location:            https://github.com/nxp-imx/imx-mkimage -b lf-6.12.3-1.0.0
+Release Location:            https://github.com/nxp-imx/imx-mkimage -b lf-6.12.20-2.0.0
 Origin:                      NXP (GPL-2.0)
                              Das U-Boot - Universal Bootloader (GPL-2.0) - http://www.denx.de/wiki/U-Boot/WebHome
 
