@@ -1,4 +1,4 @@
-inherit hab
+inherit xhab
 
 do_compile:prepend:hab4() {
     # Update defconfig to enable secure boot

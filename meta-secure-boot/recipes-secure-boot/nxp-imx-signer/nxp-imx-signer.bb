@@ -6,10 +6,10 @@ LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=1f6f1c0be32491a0c8d2915607a28f36"
 
 inherit deploy
 
-SRC_URI = "${CST_SIGNER};branch=${SRCBRANCH}"
-CST_SIGNER ?= "git://github.com/nxp-imx-support/nxp-cst-signer.git;protocol=https"
+SRC_URI = "${IMX_SIGNER};branch=${SRCBRANCH}"
+IMX_SIGNER ?= "git://github.com/nxp-imx-support/nxp-imx-signer.git;protocol=https"
 SRCBRANCH = "master"
-SRCREV = "7c7812a39d0470115f363cf45736be3c8284cb40"
+SRCREV = "b8807075433527044b19f02f29f40fe9aa10220f"
 
 S = "${WORKDIR}/git"
 
@@ -18,9 +18,9 @@ BOOT_TOOLS = "imx-boot-tools"
 do_deploy () {
     install -d ${DEPLOYDIR}/${BOOT_TOOLS}
     install -m 0755 ${S}/src/imx_signer ${DEPLOYDIR}/${BOOT_TOOLS}
-    install -m 0755 ${S}/csf_ahab.cfg.sample ${DEPLOYDIR}/${BOOT_TOOLS}
     install -m 0755 ${S}/csf_hab4.cfg.sample ${DEPLOYDIR}/${BOOT_TOOLS}
-    install -m 0755 ${S}/spsdk_ahab.cfg.sample ${DEPLOYDIR}/${BOOT_TOOLS}
+    install -m 0755 ${S}/csf_hab4_pkcs11.cfg.sample ${DEPLOYDIR}/${BOOT_TOOLS}
+    install -m 0755 ${S}/spsdk_ahab.yaml.sample ${DEPLOYDIR}/${BOOT_TOOLS}
 }
 
 addtask deploy after do_compile before do_install

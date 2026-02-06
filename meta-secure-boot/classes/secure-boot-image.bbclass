@@ -1,4 +1,4 @@
-inherit hab
+inherit xhab
 
 EXTRA_IMAGEDEPENDS:append = " linux-imx-signature"
 EXTRA_IMAGEDEPENDS:append:ahab = " imx-boot-signature"

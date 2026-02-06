@@ -1,6 +1,6 @@
 DEPENDS:append:ahab = " linux-imx"
 
-inherit hab
+inherit xhab
 
 # Make linux-imx deploy as dependent on the do_compile task of imx-boot
 do_compile[depends] += "virtual/kernel:do_deploy"
@@ -15,7 +15,7 @@ do_compile:append:ahab() {
     mv ${BOOT_STAGING}/flash.bin ${BOOT_STAGING}/flash.bak
 
     # Invoke mkimage again to Get container info
-    make SOC=${IMX_BOOT_SOC_TARGET} flash_kernel
+    make SOC=${IMX_BOOT_SOC_TARGET} KERNEL_DTB=${UBOOT_DTB_NAME} flash_kernel
 
     # Rename kernel image name and move back the imx-boot flash image name
     mv ${BOOT_STAGING}/flash.bin ${BOOT_STAGING}/flash_os.bin

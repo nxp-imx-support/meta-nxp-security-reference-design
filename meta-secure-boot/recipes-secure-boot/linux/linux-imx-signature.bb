@@ -1,11 +1,11 @@
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
-inherit cst hab deploy features_check
+inherit sigtool xhab deploy features_check
 
 REQUIRED_MACHINE_FEATURES = "linux-imx-signature"
 
-DEPENDS += "nxp-cst-signer-native linux-imx u-boot-imx"
+DEPENDS += "nxp-imx-signer-native linux-imx u-boot-imx"
 DEPENDS:append:ahab = " imx-boot"
 DEPENDS:append:mx8m-generic-bsp = " imx-boot"
 
@@ -26,23 +26,18 @@ do_sign_kernel_image() {
 do_sign_kernel_image:append:ahab() {
 
     # Creating a cfg file for imx_signer
-    if [ ! -e "${SIG_TOOL_PATH}/spsdk" ]; then
-        if [ -e "${SIG_DATA_PATH}/csf_ahab.cfg" ]; then
+    if [ -e "${SIG_TOOL_PATH}/spsdk" ]; then
+        if [ -e "${SIG_DATA_PATH}/spsdk_ahab.yaml" ]; then
             # Use user defined keys
-            install -m 0755 ${SIG_DATA_PATH}/csf_ahab.cfg ${SIGNDIR}/${SIG_CFGFILE}
+            install -m 0755 ${SIG_DATA_PATH}/spsdk_ahab.yaml ${SIGNDIR}/${SIG_CFGFILE}
         else
             # Use default keys
-            install -m 0755 ${DEPLOY_DIR_IMAGE}/${BOOT_TOOLS}/csf_ahab.cfg.sample ${SIGNDIR}/${SIG_CFGFILE}
-        fi
-    else
-        if [ -e "${SIG_DATA_PATH}/spsdk_ahab.cfg" ]; then
-            # Use user defined keys
-            install -m 0755 ${SIG_DATA_PATH}/spsdk_ahab.cfg ${SIGNDIR}/${SIG_CFGFILE}
-        else
-            # Use default keys
-            install -m 0755 ${DEPLOY_DIR_IMAGE}/${BOOT_TOOLS}/spsdk_ahab.cfg.sample ${SIGNDIR}/${SIG_CFGFILE}
+            install -m 0755 ${DEPLOY_DIR_IMAGE}/${BOOT_TOOLS}/spsdk_ahab.yaml.sample ${SIGNDIR}/${SIG_CFGFILE}
         fi
     fi
+
+    bbnote "Setting SPSDK family to: ${SPSDK_FAMILY}, in ${SIG_CFGFILE} file"
+    sed -i "s/^family:.*/family: ${SPSDK_FAMILY}/" ${SIGNDIR}/${SIG_CFGFILE}
 }
 
 do_sign_kernel_image:append:ahab() {
@@ -117,10 +112,14 @@ do_sign_kernel_image:append:hab4() {
 
 do_sign_kernel_image:append:hab4() {
 
-    # Creating a cfg file for imx_signer
+    # Creating a cfg file for imx_signer. Preference is for file based signing (csf_hab4.cfg)
+    # If PKCS11 is needed to be used by default, create a config file in SIG_DATA_PATH
     if [ -e "${SIG_DATA_PATH}/csf_hab4.cfg" ]; then
         # Use user defined keys
         install -m 0755 ${SIG_DATA_PATH}/csf_hab4.cfg ${SIGNDIR}/${SIG_CFGFILE}
+    elif [ -e "${SIG_DATA_PATH}/csf_hab4_pkcs11.cfg" ]; then
+        # Use user defined keys
+        install -m 0755 ${SIG_DATA_PATH}/csf_hab4_pkcs11.cfg ${SIGNDIR}/${SIG_CFGFILE}
     else
         # Use default keys
         install -m 0755 ${DEPLOY_DIR_IMAGE}/${BOOT_TOOLS}/csf_hab4.cfg.sample ${SIGNDIR}/${SIG_CFGFILE}

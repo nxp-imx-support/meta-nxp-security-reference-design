@@ -1,13 +1,13 @@
 NXP Software Content Register
 
 Release: NXP Security Reference Design
-Outgoing License: LA_OPT_Online Code Hosting NXP_Software_License - v1.3 December 2024
+Outgoing License: LA_OPT_Online Code Hosting NXP_Software_License - v1.4 May 2025
 License File: LICENSE.txt
 
 --------------- THIS PACKAGE ---------------
 
 Package:                     meta-nxp-security-reference-design
-Version:                     styhead-6.12.3-1.0.0
+Version:                     walnascar-6.12.49-2.2.0
 Outgoing License:            MIT
 License File:                LICENSE.MIT
 Package Category:            Software build scripts
@@ -20,6 +20,7 @@ Origin:                      NXP (MIT) Yocto Recipes
 BSP Packages
 --------------------------------------------
 
+
 Package:                     linux-imx.git
 Version:                     6.12
 Outgoing License:            GPL-2.0 WITH Linux-syscall-note 
@@ -27,20 +28,20 @@ License File:                COPYING
 Package Category:            BSP
 Type of Content:             source
 Description and comments:    The Linux kernel with i.MX-specific drivers
-Release Location:            https://github.com/nxp-imx/linux-imx -b lf-6.12.3-1.0.0
+Release Location:            https://github.com/nxp-imx/linux-imx -b lf-6.12.49-2.2.0
 Origin:                      NXP (GPL-2.0)
                              kernel.org (GPL-2.0) - https://www.kernel.org/
 
 --------------------------------------------
 
 Package:                     uboot-imx.git
-Version:                     2024.04
+Version:                     2025.04
 Outgoing License:            GPL-2.0 
 License File:                Licenses/gpl-2.0.txt
 Package Category:            BSP
 Type of Content:             source
 Description and comments:    Bootloader with i.MX-specific capabilities
-Release Location:            https://github.com/nxp-imx/uboot-imx -b lf-6.12.3-1.0.0
+Release Location:            https://github.com/nxp-imx/uboot-imx -b lf-6.12.49-2.2.0
 Origin:                      NXP (GPL-2.0)
                              Das U-Boot - Universal Bootloader (GPL-2.0) - http://www.denx.de/wiki/U-Boot/WebHome
                              Android Open Source Project (BSD-2-Clause) - https://source.android.com/June
@@ -55,7 +56,7 @@ License File:                LICENSE
 Package Category:            BSP
 Type of Content:             source
 Description and comments:    Make Image BootLoader
-Release Location:            https://github.com/nxp-imx/imx-mkimage -b lf-6.12.3-1.0.0
+Release Location:            https://github.com/nxp-imx/imx-mkimage -b lf-6.12.49-2.2.0
 Origin:                      NXP (GPL-2.0)
                              Das U-Boot - Universal Bootloader (GPL-2.0) - http://www.denx.de/wiki/U-Boot/WebHome
 
@@ -65,14 +66,26 @@ Origin:                      NXP (GPL-2.0)
 Other Packages
 --------------------------------------------
 
-Package:                     nxp-cst-signer
-Version:                     v2.0
-Date:                        March 2025
+Package:                     nxp-imx-signer
+Version:                     v3.0
+Date:                        December 2025
 Outgoing License:            GPL-2.0-only
 License File:                LICENSE.txt
 Type of content:             Source code
-Description and comments:    Signing automation tool using CST
-Release Location:            https://github.com/nxp-imx-support/nxp-cst-signer/
+Description and comments:    Signing automation tool using CST/SPSDK
+Release Location:            https://github.com/nxp-imx-support/nxp-imx-signer/
 Origin:                      NXP (GPL-2.0-only)
+
+--------------------------------------------
+
+Package:                     imx-smw-apps
+Version:                     v1.0.0
+Date:                        September 2025
+Outgoing License:            BSD-3-Clause
+License File:                LICENSE.txt
+Type of content:             Source code
+Description and comments:    SMW Reference Applications
+Release Location:            https://github.com/nxp-imx-support/imx-smw-apps/
+Origin:                      NXP (BSD-3-Clause)
 
 --------------------------------------------
