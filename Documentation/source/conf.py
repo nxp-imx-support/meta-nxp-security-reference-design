@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'Security Reference Design'
-copyright = '2025, NXP'
+copyright = '2026, NXP'
 author = 'Utkarsh Gupta'
 
 # The full version, including alpha/beta/rc tags
