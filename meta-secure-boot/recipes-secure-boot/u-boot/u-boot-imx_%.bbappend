@@ -30,13 +30,14 @@ do_deploy:append:hab4() {
             j=$(expr $j + 1)
             if [ "${type}" = "sd" ] && [ "${j}" = "${i}" ]; then
                 # Store the uboot config file so that linux build can extract CONFIG_SYS_LOAD_ADDR from it for signing
-                install -m 0755 ${B}/${config}/.config ${DEPLOY_DIR_IMAGE}/${BOOT_TOOLS}/u-boot-imx.config
+                install -d ${DEPLOYDIR}/${BOOT_TOOLS}
+                install -m 0755 ${B}/${config}/.config ${DEPLOYDIR}/${BOOT_TOOLS}/u-boot-imx.config
                 break 2
             fi
         done
     done
 
-    if [ ! -e "${DEPLOY_DIR_IMAGE}/${BOOT_TOOLS}/u-boot-imx.config" ]; then
+    if [ ! -e "${DEPLOYDIR}/${BOOT_TOOLS}/u-boot-imx.config" ]; then
         bbfatal 'Couldnt create UBoot config file to extract kernel image load address'
     fi
 }
