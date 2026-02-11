@@ -1,5 +1,8 @@
 # Sphinx documentation builder configuration file.
 
+# Copyright 2026 NXP
+# SPDX-License-Identifier: BSD-3-Clause
+
 # -- Project information -----------------------------------------------------
 
 project = 'Security Reference Design'
