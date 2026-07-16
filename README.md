@@ -11,23 +11,31 @@ Documentation
 
 This repository includes comprehensive documentation for all Security Reference Design projects.
 
-To build the documentation, you need to install Sphinx and its dependencies:
+The documentation is published online and automatically updated on every push to the active branch:
 
-    pip install sphinx sphinx_rtd_theme
+    https://nxp-imx-support.github.io/meta-nxp-security-reference-design/
+
+To build the documentation locally, install Sphinx and its dependencies:
+
+    pip install sphinx sphinx-rtd-theme docxbuilder
 
 To build HTML documentation:
 
     cd Documentation
     make html
 
-The generated HTML documentation will be available in docs/_build/html/index.html
+The generated HTML documentation will be available at:
+
+    Documentation/_build/html/index.html
 
 To build PDF documentation:
 
-    cd docs
+    cd Documentation
     make latexpdf
 
-The generated PDF documentation will be available in docs/_build/latex/
+The generated PDF documentation will be available in:
+
+    Documentation/_build/latex/
 
 Supported boards
 ----------------
