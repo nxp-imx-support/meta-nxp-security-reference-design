@@ -13,8 +13,6 @@ SMWAPPS_SRC = "git://github.com/nxp-imx-support/imx-smw-apps.git;protocol=https"
 SMWAPPS_SRCBRANCH = "release"
 SRCREV = "466eb3d8530178918e35110e6553c6c025ebc11f"
 
-S = "${WORKDIR}/git"
-
 inherit cmake
 
 CFLAGS[unexport] = "1"

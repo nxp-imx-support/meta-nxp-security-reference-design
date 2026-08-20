@@ -9,9 +9,7 @@ inherit deploy
 SRC_URI = "${IMX_SIGNER};branch=${SRCBRANCH}"
 IMX_SIGNER ?= "git://github.com/nxp-imx-support/nxp-imx-signer.git;protocol=https"
 SRCBRANCH = "master"
-SRCREV = "b8807075433527044b19f02f29f40fe9aa10220f"
-
-S = "${WORKDIR}/git"
+SRCREV = "48f3108627201c9b31c27faa97ced912e9d1e313"
 
 BOOT_TOOLS = "imx-boot-tools"
 
