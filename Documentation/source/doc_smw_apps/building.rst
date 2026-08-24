@@ -47,7 +47,7 @@ Using bitbake-layers command:
    bitbake-layers add-layer /path/to/meta-nxp-security-reference-design/meta-imx-smw-apps
 
 .. important::
-   The meta-imx-smw layer is, by default, built in imx-image-core and imx-image-full image targets on which this layer (meta-imx-smw-apps) depends on.
+   The `meta-imx-smw` layer — which `meta-imx-smw-apps` depends on — is included by default in the `imx-image-core` and `imx-image-full` image targets.
 
 Step 3: Verify Layer Configuration
 -----------------------------------

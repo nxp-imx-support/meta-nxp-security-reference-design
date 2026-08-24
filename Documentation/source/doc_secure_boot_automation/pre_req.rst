@@ -7,18 +7,23 @@ The prerequisites for preparing a signed image are as follows:
 
 2. Prepare the keys and certificates using CST or SPSDK.
 
-By default, the NXP CST Signer Tool uses standard keys of type `ECC P256-SHA256` for i.MX 8/8x/8ULP/9 Family and `RSA 2048-SHA256` for i.MX 6/7/8M Family, to be available in the download location (keys and crts directories) of CST or SPSDK. Follow the CST User Guide available in the CST package or `SPSDK documentation <https://spsdk.readthedocs.io/en/latest/examples/ahab/index.html>`_ to generate the keys, certificates, SRK table/fuses and for more information.
+By default, the NXP IMX Signer Tool uses standard keys of type `ECC P256-SHA256` for i.MX 8/8x/8ULP/9 Family and `RSA 2048-SHA256` for i.MX 6/7/8M Family, to be available in the download location (keys and crts directories) of CST or SPSDK. Follow the CST User Guide available in the CST package or `SPSDK documentation <https://spsdk.readthedocs.io/en/latest/examples/ahab/index.html>`_ to generate the keys, certificates, SRK table/fuses and for more information.
 
 .. note::
     
-    Note: (Optional) Create and populate `csf_hab4.cfg`, `csf_hab4_pkcs11.cfg` or `spsdk_ahab.yaml` with the preferred key type of the PKI tree location. The default configuration files are located at the NXP IMX Signer work directory in Yocto build.
+    (Optional) Create and populate `csf_hab4.cfg`, `csf_hab4_pkcs11.cfg`, or `spsdk_ahab.yaml` with your preferred key type and PKI tree location. The default configuration files are located in the NXP IMX Signer work directory inside the Yocto build.
 
-3. In both CST and SPSDK, the password for the private key is expected to be present in the `keys` folder in file-based signing procedure. The filename for the password file should be `key_pass.txt`.
+.. note:: 
+
+    The default keys being used are SRK keys with CA flag set. This means the `flag_ca` is set to `true` in SPSDK YAML configuration file `spsdk_ahab.yaml.sample` (CST automatically parses the CA flag). When choosing to use your own keys, please carefully modify the corresponding configuration files and set the `SIG_DATA_PATH` accordingly.
+
+
+3. For file-based signing, the private key password must be stored in a file named `key_pass.txt` inside the `keys` folder. This applies to both CST and SPSDK.
 
 HSM-based Signing
 -----------------
 
-For Hardware Security Module (HSM) based signing, the signing process uses PKCS#11 interface to access the private keys stored securely in the HSM. The configuration files `csf_hab4_pkcs11.cfg` for HAB4-based devices (i.MX 6/7/8M Family) or `spsdk_ahab.yaml` for AHAB-based devices (i.MX 8/8x/8ULP/9 Family) must be properly configured to enable HSM signing.
+For Hardware Security Module (HSM) based signing, the signing process uses the PKCS#11 interface to access private keys stored securely in the HSM. The configuration files `csf_hab4_pkcs11.cfg` for HAB4-based devices (i.MX 6/7/8M Family) or `spsdk_ahab.yaml` for AHAB-based devices (i.MX 8/8x/8ULP/9 Family) must be properly configured to enable HSM signing.
 
 When preparing the configuration files for HSM signing:
 

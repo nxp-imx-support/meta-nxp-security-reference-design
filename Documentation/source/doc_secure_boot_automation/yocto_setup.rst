@@ -19,7 +19,7 @@ To set up the Yocto project for secure boot build, perform the following steps:
     repo sync
     DISTRO=<DISTRO> MACHINE=<MACHINE> source imx-setup-release.sh -b <build directory>
 
-1. Add the meta-secure-boot layer to the Yocto project.
+2. Add the meta-secure-boot layer to the Yocto project.
 
 .. code-block::
 

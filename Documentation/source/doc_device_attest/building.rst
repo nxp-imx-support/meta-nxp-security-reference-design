@@ -37,7 +37,7 @@ Runtime dependencies:
 Compatible Machines
 ^^^^^^^^^^^^^^^^^^^
 
-The meta-imx-smw-apps layer supports:
+The ``meta-imx-device-attest`` layer is compatible with:
 
 - ``i.MX 9 Family``
 
@@ -71,10 +71,10 @@ Edit your ``conf/local.conf``:
 
    IMAGE_INSTALL:append = " device-attest-scripts"
 
-Step 4: Build package
-^^^^^^^^^^^^^^^^^^^^^
+Step 4: Build the package
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Build only the device-attest-scripts package. This will build only the device-attest-scripts package without rebuilding the entire image.
+Build only the ``device-attest-scripts`` package without rebuilding the entire image.
 
 .. code-block:: bash
 
@@ -89,10 +89,10 @@ Alternatively, you can use devtool for development and deployment:
    devtool build device-attest-scripts
    devtool deploy-target device-attest-scripts root@<target-ip>
 
-Step 5: Build Image
-^^^^^^^^^^^^^^^^^^^^
+Step 5: Build a Full Image (optional)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Build the image with these scripts
+Build a complete image that includes the device attestation scripts.
 
 .. code-block:: bash
 

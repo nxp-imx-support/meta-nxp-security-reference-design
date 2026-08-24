@@ -91,7 +91,7 @@ Basic Server Start
    # Use uvicorn directly
    uvicorn rest_server:app --host 192.168.1.100 --port 8000
 
-The server starts on ``http://0.0.0.0:8000``
+The server listens on all interfaces (``0.0.0.0``) and is accessible from the network at ``http://<server-ip>:8000``.
 
 **Output**:
 
