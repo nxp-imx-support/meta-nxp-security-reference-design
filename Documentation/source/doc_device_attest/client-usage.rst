@@ -14,6 +14,7 @@ Prerequisites
 On the Device
 ^^^^^^^^^^^^^
 
+* ``nvm_daemon`` running (from ``imx-secure-enclave`` package) — required for ELE firmware services
 * ``imx-smw-app`` installed and in PATH
 * ``python3`` with ``requests`` module
 * Network connectivity to attestation server
@@ -42,6 +43,26 @@ Parameters
 
 Attestation Workflow
 --------------------
+
+Step 0: Start NVM Daemon
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Before running any attestation commands, ensure ``nvm_daemon`` is running on the device. This process manages non-volatile memory for the ELE firmware and must be active for SMW operations to succeed.
+
+.. code-block:: bash
+
+   systemctl start nvm_daemon
+
+To verify it is running:
+
+.. code-block:: bash
+
+   systemctl status nvm_daemon
+
+.. note::
+
+   To start it automatically on every boot, add it to ``/etc/rc.local`` or create a systemd
+   service unit.
 
 Step 1: Request Nonce
 ^^^^^^^^^^^^^^^^^^^^^
@@ -130,6 +151,9 @@ Complete Attestation Flow
 
 .. code-block:: bash
 
+   # Step 0: Start NVM daemon (required for ELE firmware services)
+   systemctl start nvm_daemon
+
    # Navigate to scripts directory
    cd /root/device_attestation/
 
@@ -145,6 +169,25 @@ Complete Attestation Flow
 
 Troubleshooting
 ---------------
+
+SMW Error 15 / Operation Not Supported
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**Error**: ``Device Attest public key reading error 15`` or ``ERROR: Failed to retrieve die attestation public key``
+
+**Cause**: ``nvm_daemon`` is not running. Without it, the ELE firmware session cannot be opened and all SMW operations fail with ``SMW_STATUS_OPERATION_NOT_SUPPORTED`` (error 15). The kernel log may show:
+
+.. code-block:: text
+
+   fsl-se secure-enclave: MSG[0x10] Hdr: Cmd size mismatch.
+   fsl-se secure-enclave: MSG[0x30] Hdr: Cmd size mismatch.
+
+**Solution**:
+
+.. code-block:: bash
+
+   systemctl start nvm_daemon
+   # Then retry the attestation command
 
 Connection Errors
 ^^^^^^^^^^^^^^^^^

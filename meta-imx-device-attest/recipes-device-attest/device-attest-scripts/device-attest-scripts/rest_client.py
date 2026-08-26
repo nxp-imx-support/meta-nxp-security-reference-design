@@ -7,6 +7,19 @@ import sys
 import requests
 import subprocess
 
+# Function to check if nvm_daemon service is active (required for ELE firmware services)
+def check_nvm_daemon():
+    result = subprocess.run(
+        ["systemctl", "is-active", "nvm_daemon"],
+        capture_output=True, text=True
+    )
+    if result.stdout.strip() != "active":
+        state = result.stdout.strip() or "unknown"
+        print(f"[CLIENT] Error: nvm_daemon service is not active (state: {state}).")
+        print("[CLIENT] Start it with: systemctl start nvm_daemon")
+        return False
+    return True
+
 # Function to convert binary file to hex string
 def file_to_hex(file_path):
     with open(file_path, "rb") as f:
@@ -31,6 +44,9 @@ def req_nonce(server_ip):
 
 # Function to send attestation data to server
 def submit_attestation_el2go(server_ip):
+
+    if not check_nvm_daemon():
+        return
 
     try:
         subprocess.run(["imx-smw-app", "dev-mgmt", "-u", "-o", "uuid.bin"], check=True)
@@ -59,6 +75,9 @@ def submit_attestation_el2go(server_ip):
 
 # Function to send attestation data to server
 def submit_attestation_pubkey(server_ip):
+
+    if not check_nvm_daemon():
+        return
 
     try:
         subprocess.run(["imx-smw-app", "dev-mgmt", "-a", "-n", "nonce.bin", "-o", "dev_attest_data.bin"], check=True)

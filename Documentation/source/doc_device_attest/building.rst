@@ -25,6 +25,7 @@ Runtime dependencies:
 
 * ``smw``: Security Middleware runtime
 * ``imx-smw-apps``: SMW applications
+* ``imx-secure-enclave``: ELE firmware communication library (provides ``nvm_daemon``)
 * ``python3``: Python 3 runtime
 * ``python3-requests``: HTTP library (for client)
 * ``python3-fastapi``: Web framework (for server)
@@ -33,6 +34,16 @@ Runtime dependencies:
 .. note::
 
    The Python packages (``python3-requests``, ``python3-fastapi``, ``python3-uvicorn``) are not installed on the target by default. You may need to add them to your image configuration when running the client and/or server scripts.
+
+.. important::
+
+   The ``nvm_daemon`` process (provided by ``imx-secure-enclave``) **must be running** on the target device before using any ``imx-smw-app`` attestation commands. Without it, ELE firmware services may fail. Start it with:
+
+   .. code-block:: bash
+
+      systemctl start nvm_daemon
+
+   To make it persistent across reboots, add it to a startup service (see :ref:`attestation-client` for details).
 
 Compatible Machines
 ^^^^^^^^^^^^^^^^^^^
