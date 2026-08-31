@@ -1,7 +1,11 @@
 Security Reference Design Meta Layer
 ======================
 
+[![Documentation](https://img.shields.io/badge/docs-online-blue)](https://nxp-imx-support.github.io/meta-nxp-security-reference-design/)
+
 This repository is a consolidation of various Security Reference Design projects delivered by NXP, to showcase the security capabilities of the NXP MPU/MCU devices.
+
+**Full documentation is available online:** https://nxp-imx-support.github.io/meta-nxp-security-reference-design/
 
 Dependencies
 ------------
